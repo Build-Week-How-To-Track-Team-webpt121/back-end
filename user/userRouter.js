@@ -4,15 +4,15 @@ const Users = require('../user/userModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-
+//✅  welcome - initial test on server
 router.get("/", (req, res, next) => {
 	res.json({
 		message: "its go time 🔥  ",
 	})
 })
-//✅  welcome - initial test on server
 
 
+//✅ Creates a user using the information sent inside the body of the request. Hash the password before saving the user to the database.
 router.post('/register', async (req, res, next) => {
 	try {
 		const { username, password } = req.body
@@ -38,8 +38,8 @@ router.post('/register', async (req, res, next) => {
 		next(err)
 	}
 })
-////✅ Creates a user using the information sent inside the body of the request. Hash the password before saving the user to the database.
 
+//✅ Use the credentials sent inside the body to authenticate the user. On successful login, create a new JWT with the user id as the subject and send it back to the client. If login fails, respond with the correct status code and an error message
 router.post('/login', async (req, res, next) => {
 	try {
 		const { username, password } = req.body
@@ -76,6 +76,8 @@ router.post('/login', async (req, res, next) => {
 		next(err)
 	}
 })
-//✅ Use the credentials sent inside the body to authenticate the user. On successful login, create a new JWT with the user id as the subject and send it back to the client. If login fails, respond with the correct status code and the message: 'You shall not pass!'
+
+
+
 
 module.exports = router
