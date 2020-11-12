@@ -1,21 +1,38 @@
+require('dotenv').config();
+
 module.exports = {
-    client: "sqlite3", //specify the DBMS
-    useNullAsDefault: true, // a flag required for SQlite
-    connection: {
-        filename: "./database/buildweek.db3" //location of the database file
+  development: {
+    client: 'sqlite3',
+    connection: { filename: './database/build.db3' },
+    useNullAsDefault: true,
+    migrations: {
+      directory: './database/migrations',
+      tableName: 'dbmigrations',
+    },
+    seeds: { directory: './database/seeds' },
+  },
+  testing: {
+    client: 'sqlite3',
+    connection: { filename: './database/test.db3' },
+    useNullAsDefault: true,
+    migrations: {
+      directory: './database/migrations',
+      tableName: 'dbmigrations',
+    },
+    seeds: { directory: './database/seeds' },
+  },
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    useNullAsDefault: true,
+    pool: {
+      min: 2,
+      max: 10,
     },
     migrations: {
-        directory: "./database/migrations",
+      directory: './database/migrations',
+      tableName: 'dbmigrations',
     },
-    seeds: {
-        directory: "./database/seeds",
-    },
-
-    // this is needed when using foreign keys
-    pool: {
-        afterCreate: (conn, done) => {
-            // runs after a connection is made to the sqlite engine
-            conn.run("PRAGMA foreign_keys = ON", done) // turn on FK enforcement
-        },
-    },
-}
+    seeds: { directory: './database/seeds' },
+  },
+};
