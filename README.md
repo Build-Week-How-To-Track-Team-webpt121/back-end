@@ -13,6 +13,8 @@ Guides
 User must be logged in to reach these endpoints (auth token in header)
 
 User can get, delete and update guides.
+
+
 ---
 
 | Methods        | Endpoint           | Returns  |  Parameters
